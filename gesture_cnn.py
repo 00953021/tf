@@ -4,7 +4,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras import models, layers
 				
-num_classes = 5 # number of gestures
+num_classes = 4 # number of gestures
 target_size = (96,96)
 
 # Dataset 
