@@ -22,20 +22,13 @@ with mp_pose.Pose(
         img = cv2.resize(img,(520,300))               # 縮小尺寸，加快演算速度
         img2 = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)   # 將 BGR 轉換成 RGB
         results = pose.process(img2)                  # 取得姿勢偵測結果
-        if results.multi_pose_landmarks:
-            for hand_landmarks in results.multi_pose_landmarks:
-                x = pose_landmarks.landmark[7].x * w   # 取得食指末端 x 座標
-                y = pose_landmarks.landmark[7].y * h   # 取得食指末端 y 座標
-                print(x,y)
-                if x>rx and x<(rx+80) and y>ry and y<(ry+80):
-                    run = True
         # 根據姿勢偵測結果，標記身體節點和骨架
         mp_drawing.draw_landmarks(
             img,
             results.pose_landmarks,
             mp_pose.POSE_CONNECTIONS,
             landmark_drawing_spec=mp_drawing_styles.get_default_pose_landmarks_style())
-        cv2.rectangle(img,(rx,ry),(rx+80,ry+80),(0,0,255),5)
+
         cv2.imshow('oxxostudio', img)
         if cv2.waitKey(5) == ord('q'):
             break     # 按下 q 鍵停止
