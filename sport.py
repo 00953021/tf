@@ -8,7 +8,7 @@ mp_drawing_styles = mp.solutions.drawing_styles
 mp_selfie_segmentation = mp.solutions.selfie_segmentation
 mp_pose = mp.solutions.pose
 BG_COLOR = (192, 192, 192) # gray
-ExAngle=40
+ExAngle=90
 ExStatus=False
 countEx=0
 pose = mp_pose.Pose(
@@ -26,10 +26,10 @@ def FindAngleF(a,b,c):
 
 def countExF(HandAngel): 
   global ExStatus
-  if HandAngel<40 and ExStatus==False:
+  if HandAngel<90 and ExStatus==False:
     countEx=1
     ExStatus=True
-  elif HandAngel>40 :
+  elif HandAngel>90 :
     countEx=0
     ExStatus=False
   else:
@@ -87,6 +87,8 @@ with mp_selfie_segmentation.SelfieSegmentation(model_selection=0) as selfie_segm
         # image=cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         #顯示結果      
       cv2.imshow('MediaPipe Pose',image)
-      if cv2.waitKey(5) & 0xFF == 27:
+      #if cv2.waitKey(5) & 0xFF == 27:
+       # break
+      if countEX == 20:
         break
 cap.release()
