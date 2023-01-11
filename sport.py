@@ -52,11 +52,11 @@ with mp_selfie_segmentation.SelfieSegmentation(model_selection=0) as selfie_segm
       imgH,imgW=image.shape[0],image.shape[1]
       #image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
       results = pose.process(image) #偵測身體
-      #左手軸3點->11,13,15
+      #左腳軸3點->23,25,27
       if (not results.pose_landmarks==None): #至少有一個身體
-        a=np.array([results.pose_landmarks.landmark[11].x*imgW,results.pose_landmarks.landmark[11].y*imgH])
-        b=np.array([results.pose_landmarks.landmark[13].x*imgW,results.pose_landmarks.landmark[13].y*imgH])
-        c=np.array([results.pose_landmarks.landmark[15].x*imgW,results.pose_landmarks.landmark[15].y*imgH])
+        a=np.array([results.pose_landmarks.landmark[23].x*imgW,results.pose_landmarks.landmark[23].y*imgH])
+        b=np.array([results.pose_landmarks.landmark[25].x*imgW,results.pose_landmarks.landmark[25].y*imgH])
+        c=np.array([results.pose_landmarks.landmark[27].x*imgW,results.pose_landmarks.landmark[27].y*imgH])
         #算出角度
         HandAngle=FindAngleF(a,b,c)
         #print(HandAngle)
@@ -72,9 +72,9 @@ with mp_selfie_segmentation.SelfieSegmentation(model_selection=0) as selfie_segm
             landmark_drawing_spec=mp_drawing_styles.get_default_pose_landmarks_style()
           )
         image=cv2.flip(image, 1)
-        x13,y13=round((1-results.pose_landmarks.landmark[13].x)*imgW),int(results.pose_landmarks.landmark[13].y*imgH)
-        if (x13<imgW and x13>0) and (y13<imgH and y13>0):
-          cv2.putText(image, str(round(HandAngle,2)) , (x13,y13), cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 255), 3)
+        x25,y25=round((1-results.pose_landmarks.landmark[25].x)*imgW),int(results.pose_landmarks.landmark[25].y*imgH)
+        if (x25<imgW and x25>0) and (y25<imgH and y25>0):
+          cv2.putText(image, str(round(HandAngle,2)) , (x25,y25), cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 255), 3)
         cv2.putText(image,  str(countEx) , (30,40), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
         # 畫面切割
         # image.flags.writeable = True
